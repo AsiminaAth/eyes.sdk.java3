@@ -1283,6 +1283,10 @@ public class SeleniumEyes extends EyesBase implements IDriverProvider, IBatchClo
         final EyesRemoteWebElement eyesElement = (element instanceof EyesRemoteWebElement) ?
                 (EyesRemoteWebElement) element : new EyesRemoteWebElement(logger, driver, element);
 
+        if (EyesSeleniumUtils.isMobileDevice(driver)) {
+            return checkNativeElement(eyesElement, name, checkSettings, source);
+        }
+
         String displayStyle = eyesElement.getComputedStyle("display");
         RectangleSize scrollSize = eyesElement.getScrollSize();
         RectangleSize clientSize = eyesElement.getClientSize();
@@ -1458,6 +1462,21 @@ public class SeleniumEyes extends EyesBase implements IDriverProvider, IBatchClo
         if (originalOverflow != null) {
             eyesElement.setOverflow(originalOverflow);
         }
+
+        return result;
+    }
+
+    private MatchResult checkNativeElement(EyesRemoteWebElement eyesElement, String name, ICheckSettings checkSettings, String source) {
+
+        final Rectangle rect = eyesElement.getRect();
+
+        MatchResult result = checkWindowBase(new RegionProvider() {
+            public Region getRegion(ICheckSettingsInternal settings) {
+                Region result = settings.getTargetRegion();
+                if (result == null) result = new Region(rect.x, rect.y, rect.width, rect.height);
+                return result;
+            }
+        }, name, false, checkSettings, source);
 
         return result;
     }
