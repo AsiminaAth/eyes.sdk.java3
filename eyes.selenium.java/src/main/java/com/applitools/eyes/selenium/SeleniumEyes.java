@@ -1249,11 +1249,13 @@ public class SeleniumEyes extends EyesBase implements IDriverProvider, IBatchClo
     /**
      * Switches into the given frame, takes a snapshot of the application under
      * test and matches a region specified by the given selector.
-     * @param framePath     The path to the frame to check. This is a list of                      frame names/IDs (where each frame is nested in the previous frame).
+     * @param framePath     The path to the frame to check. This is a list of
+     *                      frame names/IDs (where each frame is nested in the previous frame).
      * @param selector      A Selector specifying the region to check.
      * @param matchTimeout  The amount of time to retry matching (milliseconds).
      * @param tag           An optional tag to be associated with the snapshot.
-     * @param stitchContent Whether or not to stitch the internal content of the                      region (i.e., perform {@link #checkElement(By, int, String)} on the region.
+     * @param stitchContent Whether or not to stitch the internal content of the
+     *                      region (i.e., perform {@link #checkElement(By, int, String)} on the region.
      */
     public void checkRegionInFrame(String[] framePath, By selector,
                                    int matchTimeout, String tag,
@@ -1850,49 +1852,6 @@ public class SeleniumEyes extends EyesBase implements IDriverProvider, IBatchClo
         return result;
     }
 
-    private EyesWebDriverScreenshot getFullPageScreenshot(ScaleProviderFactory scaleProviderFactory, FrameChain originalFrameChain, EyesTargetLocator switchTo) {
-        EyesWebDriverScreenshot result;
-        logger.verbose("ForceFullPageScreenshot || stitchContent_ - enter");
-        // Save the current frame path.
-        Location originalFramePosition = originalFrameChain.size() > 0 ? originalFrameChain.getDefaultContentScrollPosition() : Location.ZERO;
-
-        switchTo.frames(this.originalFC);
-        FullPageCaptureAlgorithm algo = createFullPageCaptureAlgorithm(scaleProviderFactory);
-
-        EyesRemoteWebElement eyesScrollRootElement;
-        if (scrollRootElement instanceof EyesRemoteWebElement) {
-            eyesScrollRootElement = (EyesRemoteWebElement) scrollRootElement;
-        } else {
-            eyesScrollRootElement = new EyesRemoteWebElement(logger, driver, scrollRootElement);
-        }
-
-        WebElement scrollRootElement = getCurrentFrameScrollRootElement();
-        PositionProvider originProvider = new ScrollPositionProvider(logger, jsExecutor, scrollRootElement);
-        logger.verbose("resetting originProvider location");
-        originProvider.setPosition(Location.ZERO);
-
-        Point location = eyesScrollRootElement.getLocation();
-        SizeAndBorders sizeAndBorders = eyesScrollRootElement.getSizeAndBorders();
-
-        Region region = new Region(
-                location.getX() + sizeAndBorders.getBorders().getLeft(),
-                location.getY() + sizeAndBorders.getBorders().getTop(),
-                sizeAndBorders.getSize().getWidth(),
-                sizeAndBorders.getSize().getHeight());
-
-        PositionProvider positionProvider = positionProviderHandler.get();
-        if (positionProvider instanceof ISeleniumPositionProvider) {
-            jsExecutor.executeScript("var e = arguments[0]; if (e != null) e.setAttribute('data-applitools-scroll','true');",
-                    ((ISeleniumPositionProvider) positionProvider).getScrolledElement());
-        }
-        BufferedImage fullPageImage = algo.getStitchedRegion(region, Region.EMPTY, positionProvider);
-
-        switchTo.frames(originalFrameChain);
-
-        result = new EyesWebDriverScreenshot(logger, driver, fullPageImage, null, originalFramePosition);
-        return result;
-    }
-
     private EyesWebDriverScreenshot getElementScreenshot(ScaleProviderFactory scaleProviderFactory, EyesTargetLocator switchTo) {
         EyesWebDriverScreenshot result;
         List<PositionProviderAndMemento> ppams = null;
@@ -2063,10 +2022,16 @@ public class SeleniumEyes extends EyesBase implements IDriverProvider, IBatchClo
     }
 
     private PositionProvider getElementPositionProvider(WebElement scrollRootElement) {
-        PositionProvider positionProvider = ((EyesRemoteWebElement) scrollRootElement).getPositionProvider();
+        EyesRemoteWebElement eyesScrollRootElement = (EyesRemoteWebElement) scrollRootElement;
+        PositionProvider positionProvider = eyesScrollRootElement.getPositionProvider();
         if (positionProvider == null) {
-            positionProvider = createPositionProvider(scrollRootElement);
-            ((EyesRemoteWebElement) scrollRootElement).setPositionProvider(positionProvider);
+            logger.verbose("creating a new position provider.");
+            if (scrollRootElement.getTagName().equalsIgnoreCase("html")) {
+                positionProvider = PositionProviderFactory.getPositionProvider(logger, configurationProvider.get().getStitchMode(), jsExecutor, scrollRootElement, userAgent);
+            } else {
+                positionProvider = new ElementPositionProvider(logger, driver, eyesScrollRootElement);
+            }
+            eyesScrollRootElement.setPositionProvider(positionProvider);
         }
         logger.verbose("position provider: " + positionProvider);
         currentFramePositionProvider = positionProvider;
