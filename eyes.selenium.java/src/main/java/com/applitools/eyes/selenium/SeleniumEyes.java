@@ -1381,7 +1381,7 @@ public class SeleniumEyes extends EyesBase implements IDriverProvider, IBatchClo
             fullElementBounds = fullElementBounds.offset(memento.getX(), memento.getY());
 
             Location elementLocation = elementBounds.getLocation();
-            elementLocation.offset(-effectiveViewport.getLeft(), -effectiveViewport.getTop());
+            elementLocation = elementLocation.offset(-effectiveViewport.getLeft(), -effectiveViewport.getTop());
 
             offset = positionProvider.setPosition(elementLocation);
             logger.verbose("offset: " + offset);
