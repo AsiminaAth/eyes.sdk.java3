@@ -651,7 +651,9 @@ public class SeleniumEyes extends EyesBase implements IDriverProvider, IBatchClo
             ArgumentGuard.notNull(checkSettings, "checkSettings");
             ArgumentGuard.notOfType(checkSettings, ISeleniumCheckTarget.class, "checkSettings");
 
-            if (!EyesSeleniumUtils.isMobileDevice(driver)) {
+            boolean isMobileDevice = EyesSeleniumUtils.isMobileDevice(driver);
+
+            if (!isMobileDevice) {
                 logger.verbose("URL: " + driver.getCurrentUrl());
             }
 
@@ -671,7 +673,10 @@ public class SeleniumEyes extends EyesBase implements IDriverProvider, IBatchClo
 
             logger.verbose("setting scrollRootElement...");
             this.scrollRootElement = getScrollRootElement(seleniumCheckTarget, driver);
-            WebElement documentElement = driver.findElement(By.tagName("html"));
+            WebElement documentElement = null;
+            if (!isMobileDevice) {
+                documentElement = driver.findElement(By.tagName("html"));
+            }
             logger.verbose("scrollRootElement_ set to " + scrollRootElement);
 
             this.elementPositionProvider = null;
@@ -686,7 +691,7 @@ public class SeleniumEyes extends EyesBase implements IDriverProvider, IBatchClo
 
             EyesTargetLocator switchTo = null;
             String source = null;
-            if (!EyesSeleniumUtils.isMobileDevice(this.driver)) {
+            if (!isMobileDevice) {
                 switchTo = (EyesTargetLocator) driver.switchTo();
                 source = driver.getCurrentUrl();
             }
@@ -708,7 +713,7 @@ public class SeleniumEyes extends EyesBase implements IDriverProvider, IBatchClo
                     logger.verbose("have target element");
                     this.targetElement = targetElement;
                     this.checkElement(this.targetElement, name, checkSettings, source);
-                } else if (seleniumCheckTarget.getFrameChain().size() > 0 || !this.scrollRootElement.equals(documentElement)) {
+                } else if (!isMobileDevice && (seleniumCheckTarget.getFrameChain().size() > 0 || !this.scrollRootElement.equals(documentElement))) {
                     logger.verbose("have frame chain");
                     if (this.stitchContent) {
                         this.targetElement = getCurrentFrameScrollRootElement();
@@ -726,18 +731,22 @@ public class SeleniumEyes extends EyesBase implements IDriverProvider, IBatchClo
                 } else {
                     logger.verbose("default case");
                     // required to prevent cut line on the last stitched part of the page on some browsers (like firefox).
-                    switchTo.defaultContent();
+                    if (!isMobileDevice) {
+                        switchTo.defaultContent();
+                    }
                     Location curPos = null;
                     currentFramePositionProvider = PositionProviderFactory.getPositionProvider(logger, getConfigGetter().getStitchMode(), jsExecutor, scrollRootElement, userAgent);
-                    if (this.stitchContent) {
+                    if (!isMobileDevice && this.stitchContent) {
                         String curPosStr = (String) driver.executeScript("var e = document.documentElement; var curPos = e.scrollLeft+';'+e.scrollTop; if (e.scrollTo) {e.scrollTo(0,0);} else {e.scrollTop=0;e.scrollLeft=0;} return curPos;");
                         curPos = ScrollPositionProvider.parseLocationString(curPosStr);
                     }
                     checkWindowBase(RegionProvider.NULL_INSTANCE, name, false, checkSettings, source);
-                    if (this.stitchContent) {
-                        driver.executeScript("var e = document.documentElement; if (e.scrollTo) {e.scrollTo(" + curPos.getX() + "," + curPos.getY() + ");} else {e.scrollLeft=" + curPos.getX() + ";e.scrollTop=" + curPos.getX() + ";}");
+                    if (!isMobileDevice) {
+                        if (this.stitchContent) {
+                            driver.executeScript("var e = document.documentElement; if (e.scrollTo) {e.scrollTo(" + curPos.getX() + "," + curPos.getY() + ");} else {e.scrollLeft=" + curPos.getX() + ";e.scrollTop=" + curPos.getX() + ";}");
+                        }
+                        switchTo.frames(originalFC);
                     }
-                    switchTo.frames(originalFC);
                 }
                 this.targetElement = null;
             }
