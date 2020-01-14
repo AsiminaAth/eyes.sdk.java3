@@ -1086,7 +1086,7 @@ public class SeleniumEyes extends EyesBase implements IDriverProvider, IBatchClo
         WebElement scrollRootElement = null;
         if (currentFrame != null) {
             scrollRootElement = currentFrame.getScrollRootElement();
-        } else {
+        } else if (FrameChain.isSameFrameChain(fc, this.originalFC)) {
             scrollRootElement = this.scrollRootElement;
         }
 
