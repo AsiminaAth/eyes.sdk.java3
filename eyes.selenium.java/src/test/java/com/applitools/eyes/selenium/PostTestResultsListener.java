@@ -70,8 +70,15 @@ public class PostTestResultsListener implements ITestListener {
         try {
             CommUtils.postJson("http://sdk-test-results.herokuapp.com/result", new Gson().fromJson(resultJson, Map.class), null);
         } catch (Throwable t) {
-            CommUtils.postJson("http://sdk-test-results.herokuapp.com/result", new Gson().fromJson(resultJson, Map.class), null);
+            try {
+                CommUtils.postJson("http://sdk-test-results.herokuapp.com/result", new Gson().fromJson(resultJson, Map.class), null);
+            } catch (Throwable t2) {
+                System.out.println("Failed sending json to report: " + t2.getMessage());
+                t2.printStackTrace();
+                throw t2;
+            }
         }
+        System.out.println("Unified report: finished sending JSON to report " + resultJson.toString());
     }
 
     private void sendExtraData(String methodName, ITestResult iTestResult, Throwable e) {
