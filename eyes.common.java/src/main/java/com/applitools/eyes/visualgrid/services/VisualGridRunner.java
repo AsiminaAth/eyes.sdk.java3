@@ -398,7 +398,7 @@ public class VisualGridRunner extends EyesRunner {
     }
 
     public TestResultsSummary getAllTestResultsImpl(boolean throwException) {
-        logger.verbose("enter");
+        logger.log("enter");
         Map<IRenderingEyes, Collection<Future<TestResultContainer>>> allFutures = new HashMap<>();
         for (IRenderingEyes eyes : allEyes) {
             Collection<Future<TestResultContainer>> futureList = eyes.close();
@@ -441,7 +441,7 @@ public class VisualGridRunner extends EyesRunner {
 
         stopServices();
         notifyAllServices();
-        logger.verbose("exit");
+        logger.log("exit");
         if (throwException && exception != null) {
             throw new Error(exception);
         }
