@@ -411,7 +411,7 @@ public class VisualGridRunner extends EyesRunner {
         Throwable exception = null;
         notifyAllServices();
         List<TestResultContainer> allResults = new ArrayList<>();
-        logger.verbose("trying to call future.get on " + allFutures.size() + " future lists.");
+        logger.log("trying to call future.get on " + allFutures.size() + " future lists.");
         for (Map.Entry<IRenderingEyes, Collection<Future<TestResultContainer>>> entry : allFutures.entrySet()) {
 
             Collection<Future<TestResultContainer>> value = entry.getValue();
