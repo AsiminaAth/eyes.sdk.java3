@@ -73,6 +73,11 @@ public class EyesService extends Thread {
 
     void runNextTask() {
         if (!isServiceOn) return;
+        try {
+            Thread.sleep(2500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         final FutureTask<TestResultContainer> task = this.listener.getNextTask(tasker);
         if (task != null) {
             pauseIfNeeded();
