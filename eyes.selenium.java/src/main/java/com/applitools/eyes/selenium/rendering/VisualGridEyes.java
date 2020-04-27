@@ -550,6 +550,8 @@ public class VisualGridEyes implements ISeleniumEyes, IRenderingEyes {
 
             List<RunningTest> filteredTests = collectFilteredTests();
 
+            logger.log("filteredTests count: " + filteredTests.size());
+
             String source = webDriver.getCurrentUrl();
             for (RunningTest runningTest : filteredTests) {
                 VisualGridTask checkVisualGridTask = runningTest.check((ICheckSettings) checkSettingsInternal, regionsXPaths, source);
