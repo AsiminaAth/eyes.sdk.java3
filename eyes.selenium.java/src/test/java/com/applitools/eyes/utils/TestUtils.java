@@ -51,7 +51,7 @@ public class TestUtils {
 //            String path = logPath != null ? logPath : initLogPath(testName);
 //            return new FileLogger(path + File.separator + "log.log", false, true);
 //        }
-        return new StdoutLogHandler(false);
+        return new StdoutLogHandler(true);
     }
 
     public static LogHandler initLogger(String methodName) {
