@@ -259,6 +259,7 @@ public class VisualGridRunner extends EyesRunner {
     }
 
     private FutureTask<TestResultContainer> getNextCheckTask() {
+        logger.log("enter");
         VisualGridTask visualGridTask = null;
         try {
             ScoreTask bestScoreTask = null;
@@ -277,17 +278,21 @@ public class VisualGridRunner extends EyesRunner {
             }
 
             if (bestScoreTask == null) {
+                logger.log("exit with null");
                 return null;
             }
             visualGridTask = bestScoreTask.getVisualGridTask();
         } catch (Exception e) {
             GeneralUtils.logExceptionStackTrace(logger, e);
         }
+        logger.log("exit");
         return new FutureTask<>(visualGridTask);
     }
 
     private RenderingTask getNextRenderingTask() {
+        logger.log("enter");
         if (this.renderingTaskList.isEmpty()) {
+            logger.log("renderingTaskList is empty. exit with null");
             return null;
         }
         RenderingTask renderingTask = null;
@@ -298,23 +303,28 @@ public class VisualGridRunner extends EyesRunner {
             }
         }
 //        logger.verbose("Starting to renderTask - " + renderingTask);
+        logger.log("exit");
         return renderingTask;
     }
 
     private FutureTask<TestResultContainer> getNextTestToClose() {
+        logger.log("enter");
         RunningTest runningTest;
         synchronized (allEyes) {
             for (IRenderingEyes eyes : allEyes) {
                 runningTest = eyes.getNextTestToClose();
                 if (runningTest != null) {
+                    logger.log("exit");
                     return runningTest.getNextCloseTask();
                 }
             }
         }
+        logger.log("exit with null");
         return null;
     }
 
     private synchronized FutureTask<TestResultContainer> getNextTestToOpen() {
+        logger.log("enter");
         ScoreTask bestScoreTask = null;
         int bestMark = -1;
 //        logger.verbose("looking for best test in a list of " + allEyes.size());
@@ -337,12 +347,14 @@ public class VisualGridRunner extends EyesRunner {
 
         if (bestScoreTask == null) {
 //            logger.verbose("no test found.");
+            logger.log("exit with null");
             return null;
         }
 
         logger.verbose("found test with mark " + bestMark);
         logger.verbose("calling getNextOpenTaskAndRemove on " + bestScoreTask.toString());
         VisualGridTask nextOpenVisualGridTask = bestScoreTask.getVisualGridTask();
+        logger.log("exit");
         return new FutureTask<>(nextOpenVisualGridTask);
     }
 

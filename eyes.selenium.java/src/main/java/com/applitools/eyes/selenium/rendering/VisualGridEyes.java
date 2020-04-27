@@ -588,6 +588,7 @@ public class VisualGridEyes implements ISeleniumEyes, IRenderingEyes {
     }
 
     private List<RunningTest> collectFilteredTests() {
+        logger.log("enter");
         List<RunningTest> filteredTests = new ArrayList<>();
         for (final RunningTest test : testList) {
             List<VisualGridTask> taskList = test.getVisualGridTaskList();
@@ -606,6 +607,7 @@ public class VisualGridEyes implements ISeleniumEyes, IRenderingEyes {
                 filteredTests.add(test);
             }
         }
+        logger.log("exit");
         return filteredTests;
     }
 
