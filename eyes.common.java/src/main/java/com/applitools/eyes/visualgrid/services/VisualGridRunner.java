@@ -39,7 +39,7 @@ public class VisualGridRunner extends EyesRunner {
     private IDebugResourceWriter debugResourceWriter;
 
     private RateLimiter rateLimiter;
-    private String serverUrl = GeneralUtils.getEnvString("APPLITOOLS_SERVER_URL");;
+    private String serverUrl = GeneralUtils.getEnvString("APPLITOOLS_SERVER_URL");
     private static final String DEFAULT_API_KEY = GeneralUtils.getEnvString("APPLITOOLS_API_KEY");
     private String apiKey = DEFAULT_API_KEY;
     private boolean isDisabled;
@@ -364,10 +364,27 @@ public class VisualGridRunner extends EyesRunner {
         return new FutureTask<>(nextOpenVisualGridTask);
     }
 
-    private void logLeftOvers(){
+    private void logLeftOvers() {
         logger.log("enter");
         logger.log("allEyes count: " + allEyes.size());
+        for (IRenderingEyes eyes : allEyes) {
+            List<RunningTest> tests = eyes.getAllRunningTests();
+            logger.log("\ttests count: " + tests.size());
+            for (RunningTest test : tests) {
+                logger.log("\t\ttest isCloseTaskIssued: " + test.isCloseTaskIssued());
+                logger.log("\t\ttest isOpenTaskIssued: " + test.isOpenTaskIssued());
+                logger.log("\t\ttest tasks list: " + listTaskNames(test.getVisualGridTaskList()));
+            }
+        }
         logger.log("exit");
+    }
+
+    private String listTaskNames(List<VisualGridTask> visualGridTaskList) {
+        StringBuilder sb = new StringBuilder(100);
+        for (VisualGridTask task : visualGridTaskList) {
+            sb.append(task.getType()).append(" ; ");
+        }
+        return sb.toString();
     }
 
     public void open(IRenderingEyes eyes, RenderingInfo renderingInfo) {
@@ -510,7 +527,7 @@ public class VisualGridRunner extends EyesRunner {
             this.renderingTaskList.add(renderingTask);
         }
 
-       logger.verbose("releasing renderingTaskList");
+        logger.verbose("releasing renderingTaskList");
         notifyAllServices();
     }
 
