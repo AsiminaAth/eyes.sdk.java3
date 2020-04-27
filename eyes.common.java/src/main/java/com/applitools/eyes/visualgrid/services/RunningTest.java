@@ -71,15 +71,11 @@ public class RunningTest {
 
     private void removeAllCheckTasks() {
         Iterator<VisualGridTask> iterator = visualGridTaskList.iterator();
-        int counter = 0;
         while (iterator.hasNext()) {
             VisualGridTask next = iterator.next();
-            if (next.getType() == VisualGridTask.TaskType.CHECK) {
-                counter++;
-                iterator.remove();
-            }
+            if (next.getType() == VisualGridTask.TaskType.CHECK) iterator.remove();
+
         }
-        logger.verbose("removed " + counter + " CHECK tasks from test");
     }
 
     public boolean isCloseTaskIssued() {
