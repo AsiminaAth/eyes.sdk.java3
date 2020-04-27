@@ -278,7 +278,7 @@ public class VisualGridRunner extends EyesRunner {
             }
 
             if (bestScoreTask == null) {
-                logger.log("exit with null");
+                //logger.log("exit with null");
                 return null;
             }
             visualGridTask = bestScoreTask.getVisualGridTask();
@@ -319,9 +319,11 @@ public class VisualGridRunner extends EyesRunner {
                 }
             }
         }
-        logger.log("exit with null");
+        //logger.log("exit with null");
         return null;
     }
+
+    static int timesEncountered = 0;
 
     private synchronized FutureTask<TestResultContainer> getNextTestToOpen() {
         //logger.log("enter");
@@ -348,6 +350,10 @@ public class VisualGridRunner extends EyesRunner {
         if (bestScoreTask == null) {
 //            logger.verbose("no test found.");
             logger.log("exit with null");
+            timesEncountered++;
+            if ((timesEncountered > 2000) && (timesEncountered % 10 == 0)) {
+                logLeftOvers();
+            }
             return null;
         }
 
@@ -356,6 +362,12 @@ public class VisualGridRunner extends EyesRunner {
         VisualGridTask nextOpenVisualGridTask = bestScoreTask.getVisualGridTask();
         logger.log("exit");
         return new FutureTask<>(nextOpenVisualGridTask);
+    }
+
+    private void logLeftOvers(){
+        logger.log("enter");
+        logger.log("allEyes count: " + allEyes.size());
+        logger.log("exit");
     }
 
     public void open(IRenderingEyes eyes, RenderingInfo renderingInfo) {
@@ -384,24 +396,24 @@ public class VisualGridRunner extends EyesRunner {
     }
 
     private void startServices() {
-        logger.verbose("enter");
+        logger.log("enter");
         setServicesOn(true);
         this.servicesGroup.setDaemon(true);
         this.eyesOpenerService.start();
         this.eyesCloserService.start();
         this.renderingGridService.start();
         this.eyesCheckerService.start();
-        logger.verbose("exit");
+        logger.log("exit");
     }
 
     private void stopServices() {
-        logger.verbose("enter");
+        logger.log("enter");
         setServicesOn(false);
         this.eyesOpenerService.stopService();
         this.eyesCloserService.stopService();
         this.renderingGridService.stopService();
         this.eyesCheckerService.stopService();
-        logger.verbose("exit");
+        logger.log("exit");
     }
 
 
@@ -423,7 +435,7 @@ public class VisualGridRunner extends EyesRunner {
         Throwable exception = null;
         notifyAllServices();
         List<TestResultContainer> allResults = new ArrayList<>();
-        logger.verbose("trying to call future.get on " + allFutures.size() + " future lists.");
+        logger.log("trying to call future.get on " + allFutures.size() + " future lists.");
         for (Map.Entry<IRenderingEyes, Collection<Future<TestResultContainer>>> entry : allFutures.entrySet()) {
 
             Collection<Future<TestResultContainer>> value = entry.getValue();
