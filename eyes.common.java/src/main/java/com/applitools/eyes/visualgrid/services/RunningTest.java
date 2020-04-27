@@ -196,7 +196,7 @@ public class RunningTest {
         synchronized (this.visualGridTaskList) {
             this.visualGridTaskList.add(visualGridTask);
             logger.verbose("Open visualGridTask was added: " + visualGridTask.toString());
-            logVGTasksList(visualGridTaskList);
+            logger.verbose("tasks in visualGridTaskList: " + visualGridTaskList.size());
         }
         logger.verbose("releasing visualGridTaskList");
         return visualGridTask;
@@ -231,22 +231,12 @@ public class RunningTest {
         synchronized (visualGridTaskList) {
             this.visualGridTaskList.add(visualGridTask);
             logger.verbose("Close visualGridTask was added: " + visualGridTask.toString());
-            logVGTasksList(this.visualGridTaskList);
+            logger.verbose("tasks in visualGridTaskList: " + visualGridTaskList.size());
         }
         logger.verbose("releasing visualGridTaskList");
+        //noinspection UnnecessaryLocalVariable
         FutureTask<TestResultContainer> testResultContainerFutureTask = this.taskToFutureMapping.get(visualGridTask);
         return testResultContainerFutureTask;
-    }
-
-    private void logVGTasksList(List<VisualGridTask> visualGridTaskList) {
-        logger.verbose("tasks in visualGridTaskList: " + visualGridTaskList.size());
-        if (visualGridTaskList.size() > 1) {
-            StringBuilder sb = new StringBuilder();
-            for (VisualGridTask vgt : visualGridTaskList) {
-                sb.append(vgt.getType()).append(" ; ");
-            }
-            logger.verbose(sb.toString());
-        }
     }
 
     public VisualGridTask check(ICheckSettings checkSettings, List<VisualGridSelector[]> regionSelectors, String source) {
@@ -257,7 +247,7 @@ public class RunningTest {
         synchronized (visualGridTaskList) {
             this.visualGridTaskList.add(visualGridTask);
             logger.verbose("Check VisualGridTask was added: " + visualGridTask.toString());
-            logVGTasksList(visualGridTaskList);
+            logger.verbose("tasks in visualGridTaskList: " + visualGridTaskList.size());
         }
         logger.verbose("releasing visualGridTaskList");
         this.taskToFutureMapping.get(visualGridTask);
