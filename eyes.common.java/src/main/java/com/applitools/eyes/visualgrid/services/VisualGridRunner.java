@@ -93,7 +93,7 @@ public class VisualGridRunner extends EyesRunner {
             try {
 //                logger.verbose("locking " + serviceName);
                 synchronized (lock) {
-                    lock.wait(500);
+                    lock.wait(2500);
                 }
 //                logger.verbose("releasing " + serviceName);
                 nextTestToOpen = tasker.getNextTask();
@@ -228,7 +228,7 @@ public class VisualGridRunner extends EyesRunner {
                         try {
                             nextTestToRender = getNextRenderingTask();
                             if (nextTestToRender == null) {
-                                renderingServiceLock.wait(500);
+                                renderingServiceLock.wait(2500);
 //                                logger.verbose("Rendering service woke up");
                                 nextTestToRender = getNextRenderingTask();
                             }
