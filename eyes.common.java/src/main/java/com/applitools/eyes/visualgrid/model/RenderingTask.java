@@ -907,7 +907,7 @@ public class RenderingTask implements Callable<RenderStatusResults>, Completable
             }
             if (renderStatusResultsList == null || renderStatusResultsList.isEmpty() || renderStatusResultsList.get(0) == null) {
                 try {
-                    Thread.sleep(2500);
+                    Thread.sleep(5000);
                 } catch (InterruptedException e) {
                     GeneralUtils.logExceptionStackTrace(logger, e);
                 }

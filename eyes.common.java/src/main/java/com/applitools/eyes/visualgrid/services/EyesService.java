@@ -74,7 +74,7 @@ public class EyesService extends Thread {
     void runNextTask() {
         if (!isServiceOn) return;
         try {
-            Thread.sleep(2500);
+            Thread.sleep(5000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

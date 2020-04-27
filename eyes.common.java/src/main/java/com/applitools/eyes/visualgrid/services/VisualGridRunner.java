@@ -93,7 +93,7 @@ public class VisualGridRunner extends EyesRunner {
             try {
 //                logger.verbose("locking " + serviceName);
                 synchronized (lock) {
-                    lock.wait(2500);
+                    lock.wait(5000);
                 }
 //                logger.verbose("releasing " + serviceName);
                 nextTestToOpen = tasker.getNextTask();
@@ -228,7 +228,7 @@ public class VisualGridRunner extends EyesRunner {
                         try {
                             nextTestToRender = getNextRenderingTask();
                             if (nextTestToRender == null) {
-                                renderingServiceLock.wait(2500);
+                                renderingServiceLock.wait(5000);
 //                                logger.verbose("Rendering service woke up");
                                 nextTestToRender = getNextRenderingTask();
                             }
@@ -292,7 +292,7 @@ public class VisualGridRunner extends EyesRunner {
     private RenderingTask getNextRenderingTask() {
         //logger.log("enter");
         if (this.renderingTaskList.isEmpty()) {
-            logger.log("renderingTaskList is empty. exit with null");
+            //logger.log("renderingTaskList is empty. exit with null");
             return null;
         }
         RenderingTask renderingTask = null;
