@@ -259,7 +259,7 @@ public class VisualGridRunner extends EyesRunner {
     }
 
     private FutureTask<TestResultContainer> getNextCheckTask() {
-        logger.log("enter");
+        //logger.log("enter");
         VisualGridTask visualGridTask = null;
         try {
             ScoreTask bestScoreTask = null;
@@ -290,7 +290,7 @@ public class VisualGridRunner extends EyesRunner {
     }
 
     private RenderingTask getNextRenderingTask() {
-        logger.log("enter");
+        //logger.log("enter");
         if (this.renderingTaskList.isEmpty()) {
             logger.log("renderingTaskList is empty. exit with null");
             return null;
@@ -308,7 +308,7 @@ public class VisualGridRunner extends EyesRunner {
     }
 
     private FutureTask<TestResultContainer> getNextTestToClose() {
-        logger.log("enter");
+        //logger.log("enter");
         RunningTest runningTest;
         synchronized (allEyes) {
             for (IRenderingEyes eyes : allEyes) {
@@ -324,7 +324,7 @@ public class VisualGridRunner extends EyesRunner {
     }
 
     private synchronized FutureTask<TestResultContainer> getNextTestToOpen() {
-        logger.log("enter");
+        //logger.log("enter");
         ScoreTask bestScoreTask = null;
         int bestMark = -1;
 //        logger.verbose("looking for best test in a list of " + allEyes.size());
