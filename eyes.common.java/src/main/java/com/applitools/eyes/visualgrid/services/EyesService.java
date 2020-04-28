@@ -45,6 +45,7 @@ public class EyesService extends Thread {
     @Override
     public void run() {
         try {
+            logger.log("Service '" + this.getName() + "' had started");
             while (isServiceOn) {
                 pauseIfNeeded();
                 runNextTask();
@@ -98,7 +99,7 @@ public class EyesService extends Thread {
     }
 
     void stopService() {
-        logger.verbose(this.getName() + " service is Stopped");
+        logger.log(this.getName() + " service is Stopped");
         this.isServiceOn = false;
     }
 }

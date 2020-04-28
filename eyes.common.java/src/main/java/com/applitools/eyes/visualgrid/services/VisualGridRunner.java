@@ -373,7 +373,9 @@ public class VisualGridRunner extends EyesRunner {
             for (RunningTest test : tests) {
                 logger.log("\t\ttest isCloseTaskIssued: " + test.isCloseTaskIssued());
                 logger.log("\t\ttest isOpenTaskIssued: " + test.isOpenTaskIssued());
-                logger.log("\t\ttest tasks list: " + listTaskNames(test.getVisualGridTaskList()));
+                List<VisualGridTask> tasksList = test.getVisualGridTaskList();
+                logger.log("\t\ttest tasks list count: " + tasksList.size());
+                logger.log("\t\ttest tasks list: " + listTaskNames(tasksList));
             }
         }
         logger.log("exit");
