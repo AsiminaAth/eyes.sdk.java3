@@ -43,6 +43,7 @@ public class RenderingGridService extends Thread {
     @Override
     public void run() {
         try {
+            logger.log("Service '" + this.getName() + "' had started");
             while (isServiceOn) {
                 if (isPaused) {
                     synchronized (debugLock) {
@@ -59,7 +60,7 @@ public class RenderingGridService extends Thread {
             if (this.executor != null) {
                 this.executor.shutdown();
             }
-            logger.verbose("Service '" + this.getName() + "' is finished");
+            logger.log("Service '" + this.getName() + "' is finished");
         } catch (Throwable e) {
             logger.verbose("Rendering Service Error : "+e);
         }
