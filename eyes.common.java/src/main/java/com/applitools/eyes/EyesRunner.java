@@ -56,6 +56,11 @@ public abstract class EyesRunner {
         protected final String runnerId = UUID.randomUUID().toString();
 
         @Override
+        protected int getMethodsBack() {
+            return 4;
+        }
+
+        @Override
         public String getPrefix() {
             return super.getPrefix() + " (runnerId: " + runnerId + ") ";
         }

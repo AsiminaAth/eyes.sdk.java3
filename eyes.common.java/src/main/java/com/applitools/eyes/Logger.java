@@ -6,6 +6,7 @@ package com.applitools.eyes;
 public class Logger {
     private LogHandler logHandler;
     private String sessionId;
+    protected int getMethodsBack() { return 3; }
 
     public Logger() {
         //logHandler = new NullLogHandler();
@@ -35,7 +36,6 @@ public class Logger {
     }
 
     /**
-     *
      * @return The name of the method which called the logger, if possible,
      * or an empty string.
      */
@@ -46,8 +46,9 @@ public class Logger {
         String prefix = "{" + sessionId + "} ";
         prefix += "[" + Thread.currentThread().getId() + "] ";
         // getStackTrace()<-getPrefix()<-log()/verbose()<-"actual caller"
-        if (stackTraceElements.length >= 4) {
-            prefix += stackTraceElements[3].getClassName() + "."+ stackTraceElements[3].getMethodName() + "(): ";
+        int methodsBack = getMethodsBack();
+        if (stackTraceElements.length > methodsBack) {
+            prefix += stackTraceElements[methodsBack].getClassName() + "." + stackTraceElements[methodsBack].getMethodName() + "(): ";
         }
 
         return prefix;
@@ -58,7 +59,7 @@ public class Logger {
      * @param message The message to log as verbose.
      */
     public void verbose(String message) {
-        logHandler.onMessage(true, "[VERBOSE] " + getPrefix() +  message);
+        logHandler.onMessage(true, "[VERBOSE] " + getPrefix() + message);
     }
 
     /**
