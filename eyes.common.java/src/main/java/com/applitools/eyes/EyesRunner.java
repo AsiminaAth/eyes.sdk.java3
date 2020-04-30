@@ -2,10 +2,11 @@ package com.applitools.eyes;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 public abstract class EyesRunner {
 
-    protected Logger logger = new Logger();
+    protected Logger logger = new IdPrintingLogger();
 
     private Map<String, IBatchCloser> batchesServerConnectorsMap = new HashMap<>();
 
@@ -51,4 +52,12 @@ public abstract class EyesRunner {
         }
     }
 
+    private static class IdPrintingLogger extends Logger {
+        protected final String runnerId = UUID.randomUUID().toString();
+
+        @Override
+        public String getPrefix() {
+            return super.getPrefix() + " (runnerId: " + runnerId + ") ";
+        }
+    }
 }

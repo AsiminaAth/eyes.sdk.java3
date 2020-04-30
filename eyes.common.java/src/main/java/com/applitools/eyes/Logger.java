@@ -8,7 +8,8 @@ public class Logger {
     private String sessionId;
 
     public Logger() {
-        logHandler = new NullLogHandler();
+        //logHandler = new NullLogHandler();
+        logHandler = new StdoutLogHandler();
         sessionId = "";
     }
 
@@ -38,7 +39,7 @@ public class Logger {
      * @return The name of the method which called the logger, if possible,
      * or an empty string.
      */
-    private String getPrefix() {
+    protected String getPrefix() {
         StackTraceElement[] stackTraceElements =
                 Thread.currentThread().getStackTrace();
 
