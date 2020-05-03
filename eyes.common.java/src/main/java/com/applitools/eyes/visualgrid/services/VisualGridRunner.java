@@ -356,7 +356,7 @@ public class VisualGridRunner extends EyesRunner {
                 long currentThreadId = Thread.currentThread().getId();
                 if (lastPrintedThreadId != currentThreadId) {
                     lastPrintedThreadId = currentThreadId;
-                    logger.log("exit with null");
+                    logger.log("exit with null ; lastPrintedThreadId: " + lastPrintedThreadId);
                 }
             }
             timesEncountered++;
