@@ -130,7 +130,7 @@ public class TestDoubleOpenClose {
         Assert.assertEquals(2, allTestResults.getAllResults().length);
     }
 
-    @Test(dataProvider = "booleanDP")
+    //@Test(dataProvider = "booleanDP")
     public void TestDoubleCheckDontGetAllResults(boolean useVisualGrid)
     {
         runner = useVisualGrid ? new VisualGridRunner(10) : new ClassicRunner();
