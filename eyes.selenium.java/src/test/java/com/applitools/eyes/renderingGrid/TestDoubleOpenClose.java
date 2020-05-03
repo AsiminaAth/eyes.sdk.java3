@@ -43,10 +43,12 @@ public class TestDoubleOpenClose {
             eyes.getLogger().log("2");
 
             eyes.open(driver, "Applitools Eyes SDK", "TestDoubleOpenCheckClose" + suffix, new RectangleSize(1200, 800));
+            eyes.getLogger().log("2.1");
             eyes.check(Target.window().fully().ignoreDisplacements(false).withName("Step 2"));
+            eyes.getLogger().log("2.2");
             eyes.close(false);
-
             eyes.getLogger().log("3");
+
         } finally {
             driver.quit();
             eyes.getLogger().log("4");
