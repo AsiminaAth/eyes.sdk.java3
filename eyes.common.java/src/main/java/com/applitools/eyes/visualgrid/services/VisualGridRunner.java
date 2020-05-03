@@ -352,13 +352,13 @@ public class VisualGridRunner extends EyesRunner {
 
         if (bestScoreTask == null) {
 //            logger.verbose("no test found.");
-            synchronized (lockObject) {
-                long currentThreadId = Thread.currentThread().getId();
-                if (lastPrintedThreadId != currentThreadId) {
-                    lastPrintedThreadId = currentThreadId;
-                    logger.log("exit with null ; lastPrintedThreadId: " + lastPrintedThreadId);
-                }
-            }
+//            synchronized (lockObject) {
+//                long currentThreadId = Thread.currentThread().getId();
+//                if (lastPrintedThreadId != currentThreadId) {
+//                    lastPrintedThreadId = currentThreadId;
+//                    logger.log("exit with null ; lastPrintedThreadId: " + lastPrintedThreadId);
+//                }
+//            }
             timesEncountered++;
 //            if ((timesEncountered > 2000) && (timesEncountered % 10 == 0)) {
 //                logLeftOvers();
