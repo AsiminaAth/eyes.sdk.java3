@@ -6,7 +6,7 @@ import java.util.UUID;
 
 public abstract class EyesRunner {
 
-    protected Logger logger = new IdPrintingLogger();
+    protected Logger logger = new IdPrintingLogger("n/a");
 
     private Map<String, IBatchCloser> batchesServerConnectorsMap = new HashMap<>();
 
@@ -52,8 +52,13 @@ public abstract class EyesRunner {
         }
     }
 
-    private static class IdPrintingLogger extends Logger {
+    protected static class IdPrintingLogger extends Logger {
         protected final String runnerId = UUID.randomUUID().toString();
+        protected final String suiteName;
+
+        public IdPrintingLogger(String suiteName) {
+            this.suiteName = suiteName;
+        }
 
         @Override
         protected int getMethodsBack() {
@@ -62,7 +67,7 @@ public abstract class EyesRunner {
 
         @Override
         public String getPrefix() {
-            return super.getPrefix() + " (runnerId: " + runnerId + ") ";
+            return super.getPrefix() + suiteName + " (runnerId: " + runnerId + ") ";
         }
     }
 }

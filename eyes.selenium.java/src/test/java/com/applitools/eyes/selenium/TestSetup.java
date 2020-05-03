@@ -116,7 +116,7 @@ public abstract class TestSetup extends ReportingTestSuite implements ITest {
             TestDataProvider.batchInfo.setId(batchId);
         }
 
-        this.runner = this.useVisualGrid ? new VisualGridRunner(10) : new ClassicRunner();
+        this.runner = this.useVisualGrid ? new VisualGridRunner(10, testSuitName) : new ClassicRunner();
     }
 
     public SpecificTestContextRequirements getTestData() {
