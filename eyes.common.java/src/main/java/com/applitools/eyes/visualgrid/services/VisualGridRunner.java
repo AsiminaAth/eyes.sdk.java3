@@ -610,6 +610,10 @@ public class VisualGridRunner extends EyesRunner {
         eyesCloserService.setLogger(logger);
         eyesOpenerService.setLogger(logger);
         renderingGridService.setLogger(logger);
-        this.logger = logger;
+        if (this.logger == null) {
+            this.logger = logger;
+        }else {
+            this.logger.setLogHandler(logger.getLogHandler());
+        }
     }
 }
