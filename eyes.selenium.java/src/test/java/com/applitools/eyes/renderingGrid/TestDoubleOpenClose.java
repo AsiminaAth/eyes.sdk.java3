@@ -28,22 +28,31 @@ public class TestDoubleOpenClose {
     public void TestDoubleOpenCheckClose(boolean useVisualGrid) {
         EyesRunner runner = useVisualGrid ? new VisualGridRunner(10, "TestDoubleOpenCheckClose") : new ClassicRunner();
         final WebDriver driver = SeleniumUtils.createChromeDriver();
+        final Eyes eyes = new Eyes(runner);
         try {
-            final Eyes eyes = new Eyes(runner);
             driver.get("https://applitools.github.io/demo/TestPages/VisualGridTestPage/");
 
             String suffix = useVisualGrid ? "_VG" : "";
+
+            eyes.getLogger().log("1");
 
             eyes.open(driver, "Applitools Eyes SDK", "TestDoubleOpenCheckClose" + suffix, new RectangleSize(1200, 800));
             eyes.check(Target.window().fully().ignoreDisplacements(false).withName("Step 1"));
             eyes.close(false);
 
+            eyes.getLogger().log("2");
+
             eyes.open(driver, "Applitools Eyes SDK", "TestDoubleOpenCheckClose" + suffix, new RectangleSize(1200, 800));
             eyes.check(Target.window().fully().ignoreDisplacements(false).withName("Step 2"));
             eyes.close(false);
+
+            eyes.getLogger().log("3");
         } finally {
             driver.quit();
+            eyes.getLogger().log("4");
+
             TestResultsSummary allTestResults = runner.getAllTestResults(false);
+            eyes.getLogger().log("5");
             Assert.assertEquals(2, allTestResults.getAllResults().length);
         }
     }
