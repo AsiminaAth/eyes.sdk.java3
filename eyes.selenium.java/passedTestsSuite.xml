@@ -79,38 +79,38 @@
 
     <!-- ↓ Suspected ↓ -->
 
-    <!--<test name="TestSimpleCases">-->
-        <!--<classes>-->
-            <!--<class name="com.applitools.eyes.selenium.TestSimpleCases">-->
-                <!--<methods>-->
-                    <!--<include name="TestCheckDivOverflowingThePage" />-->
-                <!--</methods>-->
-            <!--</class>-->
-        <!--</classes>-->
-    <!--</test>-->
+    <test name="TestSimpleCases">
+        <classes>
+            <class name="com.applitools.eyes.selenium.TestSimpleCases">
+                <methods>
+                    <include name="TestCheckDivOverflowingThePage" />
+                </methods>
+            </class>
+        </classes>
+    </test>
 
-    <!--<test name="TestPageWithHeader">-->
-        <!--<classes>-->
-            <!--<class name="com.applitools.eyes.selenium.TestPageWithHeader">-->
-                <!--<methods>-->
-                    <!--<include name="TestCheckPageWithHeader_Region" />-->
-                    <!--<include name="TestCheckPageWithHeader_Region_Fully" />-->
-                    <!--<include name="TestCheckPageWithHeader_Window" />-->
-                    <!--<include name="TestCheckPageWithHeader_Window_Fully" />-->
-                <!--</methods>-->
-            <!--</class>-->
-        <!--</classes>-->
-    <!--</test>-->
+    <test name="TestPageWithHeader">
+        <classes>
+            <class name="com.applitools.eyes.selenium.TestPageWithHeader">
+                <methods>
+                    <include name="TestCheckPageWithHeader_Region" />
+                    <include name="TestCheckPageWithHeader_Region_Fully" />
+                    <include name="TestCheckPageWithHeader_Window" />
+                    <include name="TestCheckPageWithHeader_Window_Fully" />
+                </methods>
+            </class>
+        </classes>
+    </test>
 
-    <!--<test name="TestScrollRootElementOnSimplePage">-->
-        <!--<classes>-->
-            <!--<class name="com.applitools.eyes.selenium.TestScrollRootElementOnSimplePage">-->
-                <!--<methods>-->
-                    <!--<include name="TestCheckWindowSimpleHtml" />-->
-                <!--</methods>-->
-            <!--</class>-->
-        <!--</classes>-->
-    <!--</test>-->
+    <test name="TestScrollRootElementOnSimplePage">
+        <classes>
+            <class name="com.applitools.eyes.selenium.TestScrollRootElementOnSimplePage">
+                <methods>
+                    <include name="TestCheckWindowSimpleHtml" />
+                </methods>
+            </class>
+        </classes>
+    </test>
 
     <!--<test name="TestSpecialCases">-->
         <!--<parameter name="dont_run" value="TestCheckRegionInAVeryBigFrame+VG"/>-->
@@ -124,42 +124,42 @@
         <!--</classes>-->
     <!--</test>-->
 
-    <!--<test name="TestAcme">-->
-        <!--<classes>-->
-            <!--<class name="com.applitools.eyes.selenium.TestAcme">-->
-                <!--<methods>-->
-                    <!--<include name="TestAcmeLogin"/>-->
-                    <!--<include name="TestCodedRegions"/>-->
-                <!--</methods>-->
-            <!--</class>-->
-        <!--</classes>-->
-    <!--</test>-->
-    <!--<test name="TestSendDom">-->
-        <!--<classes>-->
-            <!--<class name="com.applitools.eyes.selenium.TestSendDom">-->
-                <!--<methods>-->
-                    <!--<include name="TestSendDOM_Selector"/>-->
-                    <!--<include name="TestNotSendDOM"/>-->
-                    <!--<include name="TestSendDOM_1"/>-->
-                    <!--<include name="TestSendDOM_2"/>-->
-                    <!--<include name="TestSendDOM_FullWindow"/>-->
-                <!--</methods>-->
-            <!--</class>-->
-        <!--</classes>-->
-    <!--</test>-->
-    <!--<test name="TestDoubleOpenClose">-->
-        <!--<classes>-->
-            <!--<class name="com.applitools.eyes.renderingGrid.TestDoubleOpenClose">-->
-                <!--<methods>-->
-                    <!--<include name="TestDoubleOpenCheckClose"/>-->
-                    <!--<include name="TestDoubleOpenCheckCloseAsync"/>-->
-                    <!--<include name="TestDoubleOpenCheckCloseWithDifferentInstances"/>-->
-                    <!--<include name="TestDoubleOpenCheckCloseAsyncWithDifferentInstances"/>-->
-                    <!--<include name="TestDoubleCheckDontGetAllResults"/>-->
-                <!--</methods>-->
-            <!--</class>-->
-        <!--</classes>-->
-    <!--</test>-->
+    <test name="TestAcme">
+        <classes>
+            <class name="com.applitools.eyes.selenium.TestAcme">
+                <methods>
+                    <include name="TestAcmeLogin"/>
+                    <include name="TestCodedRegions"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    <test name="TestSendDom">
+        <classes>
+            <class name="com.applitools.eyes.selenium.TestSendDom">
+                <methods>
+                    <include name="TestSendDOM_Selector"/>
+                    <include name="TestNotSendDOM"/>
+                    <include name="TestSendDOM_1"/>
+                    <include name="TestSendDOM_2"/>
+                    <include name="TestSendDOM_FullWindow"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    <test name="TestDoubleOpenClose">
+        <classes>
+            <class name="com.applitools.eyes.renderingGrid.TestDoubleOpenClose">
+                <methods>
+                    <include name="TestDoubleOpenCheckClose"/>
+                    <include name="TestDoubleOpenCheckCloseAsync"/>
+                    <include name="TestDoubleOpenCheckCloseWithDifferentInstances"/>
+                    <include name="TestDoubleOpenCheckCloseAsyncWithDifferentInstances"/>
+                    <include name="TestDoubleCheckDontGetAllResults"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
 
     <test name="Proxy_Test">
         <classes>

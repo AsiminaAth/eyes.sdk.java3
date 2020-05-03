@@ -352,9 +352,9 @@ public class VisualGridRunner extends EyesRunner {
 //            logger.verbose("no test found.");
             logger.log("exit with null");
             timesEncountered++;
-            if ((timesEncountered > 2000) && (timesEncountered % 10 == 0)) {
-                logLeftOvers();
-            }
+//            if ((timesEncountered > 2000) && (timesEncountered % 10 == 0)) {
+//                logLeftOvers();
+//            }
             return null;
         }
 
