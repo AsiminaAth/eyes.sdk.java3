@@ -44,6 +44,8 @@ public class VisualGridRunner extends EyesRunner {
     private String apiKey = DEFAULT_API_KEY;
     private boolean isDisabled;
     private boolean isServicesOn = false;
+    private static long lastPrintedThreadId = 0;
+    private static Object lockObject = new Object();
 
     public void setServerUrl(String serverUrl) {
         this.serverUrl = serverUrl;
@@ -350,7 +352,13 @@ public class VisualGridRunner extends EyesRunner {
 
         if (bestScoreTask == null) {
 //            logger.verbose("no test found.");
-            logger.log("exit with null");
+            synchronized (lockObject) {
+                long currentThreadId = Thread.currentThread().getId();
+                if (lastPrintedThreadId != currentThreadId) {
+                    lastPrintedThreadId = currentThreadId;
+                    logger.log("exit with null");
+                }
+            }
             timesEncountered++;
 //            if ((timesEncountered > 2000) && (timesEncountered % 10 == 0)) {
 //                logLeftOvers();
@@ -612,7 +620,7 @@ public class VisualGridRunner extends EyesRunner {
         renderingGridService.setLogger(logger);
         if (this.logger == null) {
             this.logger = logger;
-        }else {
+        } else {
             this.logger.setLogHandler(logger.getLogHandler());
         }
     }
