@@ -21,7 +21,7 @@ public class TestDoubleOpenClose {
 
     @DataProvider(name = "booleanDP")
     public Object[] dp() {
-        return new Object[]{Boolean.TRUE, Boolean.FALSE};
+        return new Object[]{Boolean.TRUE};//, Boolean.FALSE};
     }
 
     @Test(dataProvider = "booleanDP")
@@ -43,18 +43,18 @@ public class TestDoubleOpenClose {
             eyes.getLogger().log("2");
 
             eyes.open(driver, "Applitools Eyes SDK", "TestDoubleOpenCheckClose" + suffix, new RectangleSize(1200, 800));
-            eyes.getLogger().log("2.1");
-            eyes.check(Target.window().fully().ignoreDisplacements(false).withName("Step 2"));
-            eyes.getLogger().log("2.2");
-            eyes.close(false);
             eyes.getLogger().log("3");
+            eyes.check(Target.window().fully().ignoreDisplacements(false).withName("Step 2"));
+            eyes.getLogger().log("4");
+            eyes.close(false);
+            eyes.getLogger().log("5");
 
         } finally {
             driver.quit();
-            eyes.getLogger().log("4");
+            eyes.getLogger().log("6");
 
             TestResultsSummary allTestResults = runner.getAllTestResults(false);
-            eyes.getLogger().log("5");
+            eyes.getLogger().log("7");
             Assert.assertEquals(2, allTestResults.getAllResults().length);
         }
     }
@@ -63,22 +63,33 @@ public class TestDoubleOpenClose {
     public void TestDoubleOpenCheckCloseAsync(boolean useVisualGrid) {
         EyesRunner runner = useVisualGrid ? new VisualGridRunner(10, "TestDoubleOpenCheckCloseAsync") : new ClassicRunner();
         final WebDriver driver = SeleniumUtils.createChromeDriver();
+        final Eyes eyes = new Eyes(runner);
         try {
-            final Eyes eyes = new Eyes(runner);
             driver.get("https://applitools.github.io/demo/TestPages/VisualGridTestPage/");
 
             String suffix = useVisualGrid ? "_VG" : "";
+
+            eyes.getLogger().log("1");
 
             eyes.open(driver, "Applitools Eyes SDK", "TestDoubleOpenCheckCloseAsync" + suffix, new RectangleSize(1200, 800));
             eyes.check(Target.window().fully().ignoreDisplacements(false).withName("Step 1"));
             eyes.closeAsync();
 
+            eyes.getLogger().log("2");
+
             eyes.open(driver, "Applitools Eyes SDK", "TestDoubleOpenCheckCloseAsync" + suffix, new RectangleSize(1200, 800));
+            eyes.getLogger().log("3");
+
             eyes.check(Target.window().fully().ignoreDisplacements(false).withName("Step 2"));
+            eyes.getLogger().log("4");
             eyes.closeAsync();
+            eyes.getLogger().log("5");
+
         } finally {
             driver.quit();
+            eyes.getLogger().log("6");
             TestResultsSummary allTestResults = runner.getAllTestResults(false);
+            eyes.getLogger().log("7");
             Assert.assertEquals(2, allTestResults.getAllResults().length);
         }
     }
