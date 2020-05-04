@@ -23,6 +23,10 @@ public class SeleniumUtils {
         if (TestUtils.runHeadless) {
             options.setHeadless(true);
         }
+        if (TestUtils.runOnCI && System.getenv("TRAVIS") != null) {
+            System.out.println("SystemUtils - setting system property for chromedriver");
+            System.setProperty("webdriver.chrome.driver", "/home/travis/build/chromedriver"); // for travis build.
+        }
         return new ChromeDriver(options);
     }
 

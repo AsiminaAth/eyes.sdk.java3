@@ -201,6 +201,7 @@ public class TestListener implements ITestListener {
     public void onStart(ITestContext context) {
         //System.out.println("onStart");
         if (!isBuildOnTravis()) {
+            System.out.println("TestListener - setting system property for chromedriver");
             System.setProperty("webdriver.chrome.driver", "/home/travis/build/chromedriver"); // for travis build.
         }
     }
