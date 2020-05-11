@@ -36,7 +36,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 @SuppressWarnings("WeakerAccess")
 public class RenderingTask implements Callable<RenderStatusResults>, CompletableTask {
 
-    private static final int FETCH_TIMEOUT_SECONDS = 60;
+    private static final int FETCH_TIMEOUT_MILLISECONDS = 60 * 1000;
     public static final String FULLPAGE = "full-page";
     public static final String VIEWPORT = "viewport";
     public static final int HOUR = 60 * 60 * 1000;
@@ -159,9 +159,9 @@ public class RenderingTask implements Callable<RenderStatusResults>, Completable
                     isForcePutAlreadyDone = true;
                 }
 
-                logger.verbose("step 3.3");
-                double elapsedTime = (System.currentTimeMillis() - elapsedTimeStart) / 1000;
-                stillRunning = (worstStatus == RenderStatus.NEED_MORE_RESOURCE || isNeedMoreDom) && elapsedTime < FETCH_TIMEOUT_SECONDS;
+                double elapsedTime = (System.currentTimeMillis() - elapsedTimeStart);
+                logger.log("step 3.3 - elapsed time: " + elapsedTime);
+                stillRunning = (worstStatus == RenderStatus.NEED_MORE_RESOURCE || isNeedMoreDom) && elapsedTime < FETCH_TIMEOUT_MILLISECONDS;
                 if (stillRunning) {
                     sendMissingResources(runningRenders, requests[0].getDom(), requests[0].getResources(), isNeedMoreDom);
                 }
