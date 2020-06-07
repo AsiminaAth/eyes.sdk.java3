@@ -82,7 +82,7 @@ public final class TestSendDom {
                 final Configuration configuration = new Configuration();
 
                 @Override
-                public Configuration getConfiguration() {
+                public Configuration get() {
                     return configuration;
                 }
             }, new ClassicRunner());
