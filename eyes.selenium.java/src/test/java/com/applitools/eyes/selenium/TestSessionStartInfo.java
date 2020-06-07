@@ -21,7 +21,7 @@ public class TestSessionStartInfo {
     @Test()
     public void TestSessionInfo() {
         Calendar instance = Calendar.getInstance();
-        instance.set(2017, 6, 29, 11, 1, 0);
+        instance.set(2017, Calendar.JULY, 29, 11, 1, 0);
         BatchInfo batchInfo = new BatchInfo("some batch", instance);
         batchInfo.setId("someBatchId");
         ImageMatchSettings ims = new ImageMatchSettings();
@@ -115,12 +115,12 @@ public class TestSessionStartInfo {
     public void TestImageMatchSettingsSerialization_Global(boolean useDom, boolean enablePatterns, boolean ignoreDisplacements) {
         ICheckSettings settings = Target.window().fully().useDom(useDom).enablePatterns(enablePatterns);
         TestEyes eyes = new TestEyes();
-        IConfigurationSetter configuration = (IConfigurationSetter) eyes.getConfigSetter();
+        Configuration configuration = eyes.getConfiguration();
         ExactMatchSettings exactMatchSettings = new ExactMatchSettings();
         exactMatchSettings.setMatchThreshold(0.5f);
         configuration.setDefaultMatchSettings(new ImageMatchSettings(MatchLevel.EXACT, exactMatchSettings, useDom));
         configuration.setIgnoreDisplacements(ignoreDisplacements);
-        eyes.setConfiguration((Configuration) configuration);
+        eyes.setConfiguration(configuration);
         ImageMatchSettings imageMatchSettings = MatchWindowTask.createImageMatchSettings((ICheckSettingsInternal) settings, eyes);
 
         ObjectMapper mapper = new ObjectMapper();
@@ -139,7 +139,7 @@ public class TestSessionStartInfo {
     public void TestConfigurationSerialization(boolean useDom, boolean enablePatterns, boolean ignoreDisplacements) {
         ICheckSettings settings = Target.window().fully();
         TestEyes eyes = new TestEyes();
-        Configuration configuration = (Configuration) eyes.getConfigSetter();
+        Configuration configuration = eyes.getConfiguration();
         configuration.setUseDom(useDom);
         configuration.setEnablePatterns(enablePatterns);
         configuration.setIgnoreDisplacements(ignoreDisplacements);
