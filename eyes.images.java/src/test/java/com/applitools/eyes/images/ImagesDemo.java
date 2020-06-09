@@ -1,7 +1,6 @@
 package com.applitools.eyes.images;
 
 import com.applitools.eyes.RectangleSize;
-import com.applitools.eyes.Region;
 import com.applitools.eyes.utils.ReportingTestSuite;
 import org.testng.annotations.Test;
 

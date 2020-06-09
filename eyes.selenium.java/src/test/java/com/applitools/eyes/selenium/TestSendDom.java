@@ -11,7 +11,6 @@ import com.applitools.eyes.selenium.wrappers.EyesWebDriver;
 import com.applitools.eyes.utils.CommunicationUtils;
 import com.applitools.eyes.utils.SeleniumUtils;
 import com.applitools.eyes.utils.TestUtils;
-import com.applitools.eyes.visualgrid.services.VisualGridRunner;
 import com.applitools.utils.GeneralUtils;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -257,10 +256,5 @@ public final class TestSendDom {
         Assert.assertEquals(actualAppOutputs.length, 1);
         boolean hasDom = actualAppOutputs[0].getImage().getHasDom();
         return hasDom;
-    }
-
-    private String getExpectedDomFromUrl(String domUrl) {
-        String expectedDomJsonString = CommunicationUtils.getString(domUrl);
-        return expectedDomJsonString;
     }
 }

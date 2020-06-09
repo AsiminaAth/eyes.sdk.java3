@@ -1,7 +1,6 @@
 package com.applitools.connectivity;
 
 import com.applitools.connectivity.api.ConnectivityTarget;
-import com.applitools.connectivity.api.HttpClientImpl;
 import com.applitools.connectivity.api.Request;
 import com.applitools.connectivity.api.Response;
 import com.applitools.eyes.AbstractProxySettings;
@@ -10,7 +9,6 @@ import com.applitools.eyes.RectangleSize;
 import com.applitools.eyes.TestResults;
 import com.applitools.eyes.events.ValidationInfo;
 import com.applitools.eyes.events.ValidationResult;
-import com.applitools.utils.ArgumentGuard;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
