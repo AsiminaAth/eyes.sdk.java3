@@ -55,7 +55,7 @@ jobs:
         - chmod +x ./runTests.sh
         - ./runTests.sh
     - stage: deploy
-      if: tag =~ ^RELEASE_CANDIDATE AND fork == false
+      if: true
       script:
         #         save the email of the person who did this commit in COMMITTER_EMAIL
         - COMMITTER_EMAIL="$(git log -1 $TRAVIS_COMMIT --pretty="%cE")"
