@@ -176,48 +176,48 @@ public class TestRenderings {
         TestResultsSummary allResults = runner.getAllTestResults(false);
     }
 
-    @Test
-    public void testRenderingIosSimulator() {
-        VisualGridRunner runner = new VisualGridRunner(10);
-        Eyes eyes = new Eyes(runner);
-        Configuration conf = eyes.getConfiguration();
-        conf.addBrowser(new IosDeviceInfo(IosDeviceName.iPhone_XR, IosScreenOrientation.LANDSCAPE_LEFT));
-        conf.setSaveDiffs(false);
-        eyes.setConfiguration(conf);
-        eyes.setLogHandler(new StdoutLogHandler());
-        ChromeDriver driver = SeleniumUtils.createChromeDriver();
-        driver.get("http://applitools.github.io/demo");
-        try {
-            eyes.open(driver, "Eyes SDK", "UFG Mobile Web Happy Flow", new RectangleSize(800, 600));
-            eyes.checkWindow();
-            eyes.closeAsync();
-        } finally {
-            driver.quit();
-            eyes.abortAsync();
-            runner.getAllTestResults();
-        }
-    }
-
-    @Test
-    public void testRenderingMultipleBrowsers() {
-        VisualGridRunner runner = new VisualGridRunner(10);
-        Eyes eyes = new Eyes(runner);
-        Configuration conf = eyes.getConfiguration();
-        conf.addBrowser(new IosDeviceInfo(IosDeviceName.iPhone_7));
-        conf.addBrowser(new ChromeEmulationInfo(DeviceName.iPhone_4, ScreenOrientation.LANDSCAPE));
-        conf.addBrowser(new DesktopBrowserInfo(new RectangleSize(800, 800), BrowserType.SAFARI));
-        eyes.setConfiguration(conf);
-        eyes.setLogHandler(new StdoutLogHandler());
-        ChromeDriver driver = SeleniumUtils.createChromeDriver();
-        driver.get("http://applitools.github.io/demo");
-        try {
-            eyes.open(driver, "Eyes SDK", "UFG Mobile Web Multiple Browsers", new RectangleSize(800, 800));
-            eyes.checkWindow();
-            eyes.closeAsync();
-        } finally {
-            driver.quit();
-            eyes.abortAsync();
-            runner.getAllTestResults();
-        }
-    }
+//    @Test
+//    public void testRenderingIosSimulator() {
+//        VisualGridRunner runner = new VisualGridRunner(10);
+//        Eyes eyes = new Eyes(runner);
+//        Configuration conf = eyes.getConfiguration();
+//        conf.addBrowser(new IosDeviceInfo(IosDeviceName.iPhone_XR, IosScreenOrientation.LANDSCAPE_LEFT));
+//        conf.setSaveDiffs(false);
+//        eyes.setConfiguration(conf);
+//        eyes.setLogHandler(new StdoutLogHandler());
+//        ChromeDriver driver = SeleniumUtils.createChromeDriver();
+//        driver.get("http://applitools.github.io/demo");
+//        try {
+//            eyes.open(driver, "Eyes SDK", "UFG Mobile Web Happy Flow", new RectangleSize(800, 600));
+//            eyes.checkWindow();
+//            eyes.closeAsync();
+//        } finally {
+//            driver.quit();
+//            eyes.abortAsync();
+//            runner.getAllTestResults();
+//        }
+//    }
+//
+//    @Test
+//    public void testRenderingMultipleBrowsers() {
+//        VisualGridRunner runner = new VisualGridRunner(10);
+//        Eyes eyes = new Eyes(runner);
+//        Configuration conf = eyes.getConfiguration();
+//        conf.addBrowser(new IosDeviceInfo(IosDeviceName.iPhone_7));
+//        conf.addBrowser(new ChromeEmulationInfo(DeviceName.iPhone_4, ScreenOrientation.LANDSCAPE));
+//        conf.addBrowser(new DesktopBrowserInfo(new RectangleSize(800, 800), BrowserType.SAFARI));
+//        eyes.setConfiguration(conf);
+//        eyes.setLogHandler(new StdoutLogHandler());
+//        ChromeDriver driver = SeleniumUtils.createChromeDriver();
+//        driver.get("http://applitools.github.io/demo");
+//        try {
+//            eyes.open(driver, "Eyes SDK", "UFG Mobile Web Multiple Browsers", new RectangleSize(800, 800));
+//            eyes.checkWindow();
+//            eyes.closeAsync();
+//        } finally {
+//            driver.quit();
+//            eyes.abortAsync();
+//            runner.getAllTestResults();
+//        }
+//    }
 }
